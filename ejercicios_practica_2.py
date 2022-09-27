@@ -10,6 +10,9 @@
 # Ejercicios con archivos
 
 import csv
+from dataclasses import dataclass
+from tkinter.filedialog import Open
+from webbrowser import get
 
 
 def ej3():
@@ -28,6 +31,13 @@ def ej3():
 
     # Comenzar aquí, recuerde el identado dentro de esta funcion
     
+    csvfile= open (archivo, 'r')
+    data=list(csv.DictReader(csvfile))
+    contador_tornillos=0
+    for articulo in data:
+        contador_tornillos += int(articulo ['tornillos'])
+    print("la cantidad de tornillos es: ",contador_tornillos)
+    csvfile.close
 
 
 def ej4():
@@ -47,6 +57,42 @@ def ej4():
     # utilizando "try except", tema que se verá la clase que viene.
 
     # Comenzar aquí, recuerde el identado dentro de esta funcion
+
+    csvfile=open(archivo,'r')
+    data=list(csv.DictReader(csvfile))
+
+    cantidad_dptos=len(data)
+    contador_2ambientes=0
+    contador_3ambientes=0
+        
+    for dpto in range(cantidad_dptos):
+        fila=data[dpto]
+        
+        try:
+            cantidad_ambientes=int(fila.get('ambientes'))
+            if cantidad_ambientes==2:
+                contador_2ambientes += 1
+            elif cantidad_ambientes==3:
+                contador_3ambientes += 1
+
+        except:
+            continue
+    print('En la cantidad total de dptos: ', cantidad_dptos)
+    print('Hay', contador_2ambientes, 'dptos de 2 hambientes')
+    print('Y', contador_3ambientes, 'dptos de 3 hambientes')
+    csvfile.close
+        
+
+
+
+
+
+
+
+
+
+    
+
 
 
 if __name__ == '__main__':
